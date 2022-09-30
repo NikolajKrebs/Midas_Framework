@@ -1,0 +1,25 @@
+INSTALLATION:
+=============
+
+Requirements:
+-------------
+
+The following packages are required:
+
+* Python programming language versions 3.8.13
+* NumPy version 1.23.3
+* Pandas version 1.5.0
+* Tensorflow version 2.10.0
+* Keras version 2.10.0
+* Scikit-learn version 1.1.2
+* Pickle version 0.7.5
+
+USING PaCal:
+============
+To start using the package:
+Open the Midas_Framework_v1.py file
+Import the packages
+Run the classes: Midas_Generate and Midas
+Make an instance of the Midas class
+
+Now all the Midas functions are able to be used by the Midas object

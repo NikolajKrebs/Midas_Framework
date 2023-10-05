@@ -16,8 +16,6 @@ import re
 K.clear_session()
 from tensorflow.keras.layers import BatchNormalization
 import pickle
-
-
 '''
 Midas Generate 
 '''
@@ -350,7 +348,7 @@ class Midas():
         return dataset
 
     def Scaler(self, dataset, scaler_columns, scaler_indput):
-        scaler_columns_list = list(scaler_columns.split())
+        scaler_columns_list = list(scaler_columns.split(', '))
         a = 'MinMaxScaler'
         if a in scaler_indput:
             scaler = MinMaxScaler()
@@ -380,19 +378,19 @@ class Midas():
         self.model.summary()
         print("Model has been loaded succesfully")
 
-        def Predict(self, dataset, X_pred, NLP_pred, scaler_columns, scaler_input):
-            variables_text = list(NLP_pred.split())
-            variables_struc = list(X_pred.split())
-            dataset = dataset[ variables_text + variables_struc ]
+    def Predict(self, dataset, X_pred, NLP_pred, scaler_columns, scaler_input):
+        variables_text = list(NLP_pred.split(', '))
+        variables_struc = list(X_pred.split(', '))
+        dataset = dataset[ variables_text + variables_struc ]
 
-            self.pred_text = self.Data_prep_NLP(dataset, NLP_pred)
-            dataset = dataset.drop([NLP_pred], axis = 1)
-            self.Label(dataset)
-            self.Scaler(dataset, scaler_columns, scaler_input)
+        self.pred_text = self.Data_prep_NLP(dataset, NLP_pred)
+        dataset = dataset.drop([NLP_pred], axis = 1)
+        self.Label(dataset)
+        self.Scaler(dataset, scaler_columns, scaler_input)
 
-            if self.NN_mode == "categorical":
-                X_pred = to_categorical(X_pred)
+        if self.NN_mode == "categorical":
+            X_pred = to_categorical(X_pred)
 
-            self.pred_variables = dataset.to_numpy()
-            predictions = self.model.predict([self.pred_variables, self.pred_text])
-            return predictions
+        self.pred_variables = dataset.to_numpy()
+        predictions = self.model.predict([self.pred_variables, self.pred_text])
+        return predictions
